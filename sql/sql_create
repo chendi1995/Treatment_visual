@@ -1,0 +1,83 @@
+
+SET NAMES utf8;
+SET foreign_key_checks = 0;
+SET time_zone = '+08:00';
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP DATABASE IF EXISTS `Medical_care`;
+CREATE DATABASE `Medical_care` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `Medical_care`;
+
+DROP TABLE IF EXISTS `Behavior`;
+CREATE TABLE `Behavior` (
+  `name` varchar(100) NOT NULL COMMENT '症状名',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Behavior_Disease`;
+CREATE TABLE `Behavior_Disease` (
+  `Did` int(11) NOT NULL COMMENT '疾病id',
+  `Bid` int(11) NOT NULL COMMENT '症状id',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Disease`;
+CREATE TABLE `Disease` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '疾病id',
+  `name` varchar(30) NOT NULL COMMENT '疾病名称',
+  `other_name` varchar(30) NOT NULL COMMENT '别名',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Drugs`;
+CREATE TABLE `Drugs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '药品id',
+  `name` varchar(40) NOT NULL COMMENT '药品名',
+  `Character` varchar(100) NOT NULL COMMENT '性状',
+  `english_name` varchar(25) NOT NULL COMMENT '外文名',
+  `taboo` varchar(100) NOT NULL COMMENT '禁忌',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Manufacturer`;
+CREATE TABLE `Manufacturer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '厂商id',
+  `name` varchar(60) NOT NULL COMMENT '厂商name',
+  `address` varchar(150) NOT NULL COMMENT '厂址',
+  `telephone` varchar(20) CHARACTER SET ascii NOT NULL COMMENT '厂商电话',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Produce`;
+CREATE TABLE `Produce` (
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Did` int(11) NOT NULL COMMENT '药品id',
+  `Mid` int(11) NOT NULL COMMENT '厂商id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `Treatment`;
+CREATE TABLE `Treatment` (
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `disease_id` int(11) NOT NULL COMMENT '疾病id',
+  `drugs_id` int(11) NOT NULL COMMENT '药品id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
